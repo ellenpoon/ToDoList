@@ -4,3 +4,6 @@ class ToDoItem {
 
   ToDoItem({this.title, this.content});
 }
+
+final listview_start = 0;
+final listview_end = 24;

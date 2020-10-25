@@ -173,7 +173,7 @@ class _Scheduler extends State<Scheduler> {
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
                           leading: Text(timeslot[index + listview_start]),
-                          title: Text(TaskToday[1].content),
+                          title: Text(TaskToday[index].content),
                           subtitle: Text('--'),
                           onTap: () {
                             _showDialog(index);

@@ -494,34 +494,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => MoodTracker()));
                   },
                 ),
-                ListTile(
-                  title: Text(
-                    'RecordableListView',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RecordableListView()));
-                  },
-                ),
-                ListTile(
-                  title: Text(
-                    'Swipe To Del',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SwipeToDel()));
-                  },
-                ),
               ],
             ),
           )),

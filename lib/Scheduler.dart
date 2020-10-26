@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Class/to_do_item.dart';
+import 'To Do List.dart';
 
 class Scheduler extends StatefulWidget {
   @override
@@ -24,6 +25,9 @@ class _Scheduler extends State<Scheduler> {
   final whattodo = TextEditingController();
   final duration = TextEditingController();
 
+  // var TaskToday = new List<ToDoItem>.from(ItemObject);
+  List<ToDoItem> TaskToday =
+      List<ToDoItem>.generate(24, (index) => ToDoItem(title: ''));
   // List<ToDoItem> TaskToday = (ItemObject,24);
 
 //   extension ListUpdate<ToDoItem> on List {
@@ -43,61 +47,83 @@ class _Scheduler extends State<Scheduler> {
           return AlertDialog(
               title: Text('Please enter task for' + timeslot[index]),
               content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    TextField(
-                      controller: whattodo,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.deepOrangeAccent)),
-                        labelText: 'Title',
-                        labelStyle: TextStyle(),
-                        prefixIcon: Icon(
-                          Icons.assignment,
-                          color: Colors.orange,
-                          size: 30,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextField(
+                        controller: whattodo,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.deepOrangeAccent)),
+                          labelText: 'Title',
+                          labelStyle: TextStyle(),
+                          prefixIcon: Icon(
+                            Icons.assignment,
+                            color: Colors.orange,
+                            size: 30,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    // Container(
-                    //   width: 50,
-                    //   height: 100,
-                    //   child: TextField(
-                    //     controller: duration,
-                    //     obscureText: false,
-                    //     decoration: InputDecoration(
-                    //       border: OutlineInputBorder(
-                    //           borderSide: BorderSide(
-                    //               color: Colors
-                    //                   .fordeepOrangeAccent)),
-                    //       labelText: 'Duration',
-                    //       labelStyle: TextStyle(),
-                    //       prefixIcon: Icon(
-                    //         Icons.assignment,
-                    //         color: Colors.orange,
-                    //         size: 30,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    Container(
-                        width: 40,
-                        height: 40,
+                      SizedBox(height: 20),
+                      Text('Duration'),
+                      RawMaterialButton(
+                          child: Text(
+                            'up',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          constraints: BoxConstraints.tight(Size(40, 40)),
+                          fillColor: Colors.orange,
+                          splashColor: Colors.deepOrange,
+                          shape: StadiumBorder(),
+                          onPressed: () {
+                            setState(() {
+                              // timeslotcontrol.animateTo(
+                              //     timeslotcontrol.offset - 40,
+                              //     curve: Curves.linear,
+                              //     duration: Duration(milliseconds: 500));
+                            });
+                          }),
+                      SizedBox(height: 20),
+                      Container(
+                        width: 80,
+                        height: 60,
                         child: ListView.builder(
                             itemCount: listview_end - listview_start - index,
                             itemBuilder: (BuildContext context, int index) {
                               return ListTile(
-                                  title: Text((index + 1).toString()),
+                                  title: Center(
+                                      child: Text((index + 1).toString())),
                                   onTap: () {
                                     setState(() {
                                       duration.text = index.toString();
                                     });
                                   });
-                            }))
-                  ],
+                            }),
+                      ),
+                      SizedBox(height: 20),
+                      RawMaterialButton(
+                          child: Text(
+                            'down',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          constraints: BoxConstraints.tight(Size(40, 40)),
+                          fillColor: Colors.orange,
+                          splashColor: Colors.deepOrange,
+                          shape: StadiumBorder(),
+                          onPressed: () {
+                            setState(() {
+                              // timeslotcontrol.animateTo(
+                              //     timeslotcontrol.offset - 40,
+                              //     curve: Curves.linear,
+                              //     duration: Duration(milliseconds: 500));
+                            });
+                          }),
+                    ],
+                  ),
                 ),
               ),
               actions: <Widget>[
@@ -106,34 +132,27 @@ class _Scheduler extends State<Scheduler> {
                     onPressed: () {
                       setState(() {
                         var tmp = int.parse(duration.text);
-                        print(tmp);
+//                        print(tmp);
+                        //  print('input text for index$index: ${whattodo.text}');
 
                         for (int i = index; i <= index + tmp; i++) {
-                          ToDoItem ItemObject =
-                              ToDoItem(title: whattodo.text, content: "");
-                          TaskToday[i] = ItemObject;
-
-                          print(TaskToday.length);
-
-                          //print(TaskToday[i].title);
-                          //TaskToday.remove(i);
-                          // TaskToday.insert(i, ItemObject);
-                          //TaskToday[i].title = whattodo.text;
-                          // if (i == index) {
-                          //   TaskToday.update(
-                          //   TaskToday.update(
-                          //       i,
-                          //       ToDoItem(
-                          //         title: whattodo.text,
-                          //         content: "new",
-                          //       ));
-                          // }
+                          TaskToday[i].title = whattodo.text;
                         }
-                        for (int i = 0; i <= 23; i++) {
-                          print(i.toString() + ':  ' + TaskToday[i].title);
-                        }
+                        //
+//                        for (int i = 0; i <= 23; i++) {
+//                          print(i.toString() + ':  ' + TaskToday[i].title);
+//                        }
                         Navigator.of(context).pop();
+                        //List<ToDoItem> _TaskToday = List<ToDoItem>();
+                        // _TaskToday = TaskToday;
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => MyHomePage(
+                        //           TaskToday: TaskToday,
+                        //         )));
                         whattodo.text = '';
+
                         // duration.text = 1;
                       });
                     })
@@ -143,9 +162,8 @@ class _Scheduler extends State<Scheduler> {
 
   @override
   Widget build(BuildContext context) {
-    ToDoItem ItemObject = ToDoItem(title: '', content: '');
-    // var TaskToday = new List<ToDoItem>.from(ItemObject);
-    List<ToDoItem> TaskToday = List.filled(24, ItemObject, growable: true);
+    for (var j = 0; j < TaskToday.length; j++)
+      print('$j : ' + TaskToday[j].title ?? "N/A");
     // TaskToday.add (ItemObject,24);
     return Scaffold(
       appBar: AppBar(
@@ -171,10 +189,13 @@ class _Scheduler extends State<Scheduler> {
                   child: ListView.builder(
                       itemCount: listview_end - listview_start,
                       itemBuilder: (BuildContext context, int index) {
+//                        print('building $index');
                         return ListTile(
                           leading: Text(timeslot[index + listview_start]),
-                          title: Text(TaskToday[index].content),
-                          subtitle: Text('--'),
+                          title: Text('Title: ' + TaskToday[index].title),
+                          //trailing: Icon(Icons.call_missed_outgoing),
+                          subtitle:
+                              Text('Content: ' + TaskToday[index].content),
                           onTap: () {
                             _showDialog(index);
                           },

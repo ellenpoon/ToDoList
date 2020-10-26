@@ -6,17 +6,19 @@ import 'Task Completed.dart';
 import 'MoodTracker.dart';
 import 'CupertinoPicker.dart';
 import 'RecordableListView.dart';
+import 'SwipeToDel.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.TaskToday}) : super(key: key);
   final String title;
-
+  final List<ToDoItem> TaskToday;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   // var list = new List<String>();
+
   final myController = TextEditingController();
   final myController2 = TextEditingController();
   final starttime_pos = -1;
@@ -251,14 +253,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ToDoItem itemObject = ToDoItem(title: tmp, content: tmp2);
         todoList.add(itemObject);
 
-        myController.text = ""; //clear input text fieldfef
+        myController.text = ""; //clear input text field
         myController2.text = "";
+
+        print('todolistlen' + todolistlen.toString());
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final TaskToday = widget.TaskToday;
+    //print('tasktoday' + (TaskToday.length).toString());
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -356,12 +363,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       //           Icons.delete,
                       //           color: Colors.white,
                       //         )
-
-                      return ListTile(
-                          leading: Text(index.toString()),
-                          title: Text(todoList[index].title),
-                          subtitle: Text(todoList[index].content),
-                          trailing: IconButton(
+                      // return Dismissible(
+                      //     direction: DismissDirection.endToStart,
+                      //     key: Key(items[index]),
+                      //     background: Container(
+                      //         alignment: AlignmentDirectional.centerEnd,
+                      //         color: Colors.red,
+                      return Dismissible(
+                          direction: DismissDirection.endToStart,
+                          key: Key(todoList[index].title),
+                          onDismissed: (direction) {
+                            setState(() {
+                              todoList_Completed.add(todoList[index]);
+                              todoList.removeAt(index); // dismiss
+                              todolistlen = todoList.length;
+                            });
+                          },
+                          child: ListTile(
+                            leading: Text(index.toString()),
+                            title: Text(todoList[index].title),
+                            subtitle: Text(todoList[index].content),
+                            trailing: IconButton(
                               icon: Icon(
                                 Icons.call_missed_outgoing,
                                 color: Colors.lightGreen,
@@ -370,13 +392,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                 setState(
                                   () {
                                     _showDialog2(index, -1, -1);
-                                    // todoList_Completed.add(todoList[index]);
-                                    // print(todoList_Completed.length);
-                                    // todoList.remove(todoList[index]);
-                                    // todolistlen = todoList.length;
                                   },
                                 );
-                              }));
+                              },
+                            ),
+
+                            // leading: Text(index.toString()),
+                            // title: Text(todoList[index].title),
+                            // subtitle: Text(todoList[index].content),
+                            // trailing: IconButton(
+                            //     icon: Icon(
+                            //       Icons.call_missed_outgoing,
+                            //       color: Colors.lightGreen,
+                            //     ),
+                          ));
+                      // onPressed: () {
+                      //   setState(
+                      //     () {
+                      //       _showDialog2(index, -1, -1);
+                      //       // todoList_Completed.add(todoList[index]);
+                      //       // print(todoList_Completed.length);
+                      //       // todoList.remove(todoList[index]);
+                      //       // todolistlen = todoList.length;
+                      //     },
+                      //   );
+                      // }));
                     }))
             // ListView(children: list.map((str) ef
             //   return ListTile(title: Text(str));
@@ -467,6 +507,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => RecordableListView()));
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Swipe To Del',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 18,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SwipeToDel()));
                   },
                 ),
               ],

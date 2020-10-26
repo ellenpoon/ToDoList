@@ -1,21 +1,21 @@
 class ToDoItem {
-  final String title;
-  final String content;
+  String title;
+  String content;
 
-  ToDoItem({this.title, this.content});
+  ToDoItem({this.title = '', this.content = ''});
 }
 
-ToDoItem a = ToDoItem(title: "", content: "");
-List<ToDoItem> TaskToday = List.filled(24, a);
-
-extension ListUpdate<ToDoItem> on List {
-  List update(int pos, ToDoItem t) {
-    List<ToDoItem> list = new List();
-    list.add(t);
-    replaceRange(pos, pos + 1, list);
-    return this;
-  }
-}
+// ToDoItem a = ToDoItem(title: "", content: "");
+// List<ToDoItem> TaskToday = List.filled(24, a);
+//
+// extension ListUpdate<ToDoItem> on List {
+//   List update(int pos, ToDoItem t) {
+//     List<ToDoItem> list = new List();
+//     list.add(t);
+//     replaceRange(pos, pos + 1, list);
+//     return this;
+//   }
+// }
 
 final listview_start = 0;
 final listview_end = 24;

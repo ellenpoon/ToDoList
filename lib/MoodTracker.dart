@@ -15,7 +15,6 @@ class _MoodTracker extends State<MoodTracker> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Mood Tracker"),
-        backgroundColor: Colors.deepPurpleAccent,
       ),
       body: Center(),
     );

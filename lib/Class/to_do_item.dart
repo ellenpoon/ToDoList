@@ -5,6 +5,19 @@ class ToDoItem {
   ToDoItem({this.title = '', this.content = ''});
 }
 
+class PassToDoItem {
+  String title;
+  String content;
+  int start_time;
+  int duration;
+
+  PassToDoItem(
+      {this.title = '',
+      this.content = '',
+      this.start_time = 0,
+      this.duration = 0});
+}
+
 // ToDoItem a = ToDoItem(title: "", content: "");
 // List<ToDoItem> TaskToday = List.filled(24, a);
 //
@@ -46,3 +59,32 @@ final List<String> timeslot = [
   '22-23',
   '23-24'
 ];
+final List<String> month = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];
+final List<String> month_inverted = [
+  'Dec',
+  'Nov',
+  'Oct',
+  'Sep',
+  'Aug',
+  'Jul',
+  'Jun',
+  'May',
+  'Apr',
+  'Mar',
+  'Feb',
+  'Jan',
+];
+final List<String> task_category = ['Sport', 'Work', 'Personal', 'Purchase'];
